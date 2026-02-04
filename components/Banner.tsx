@@ -2,6 +2,7 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import type { Variants } from "framer-motion"
 import { ArrowRight, GraduationCap } from "lucide-react"
 import Link from "next/link"
 
@@ -14,7 +15,7 @@ const Banner: React.FC = () => {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
