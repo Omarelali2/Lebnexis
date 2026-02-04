@@ -39,7 +39,10 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 },
+    transition: {
+      staggerChildren: 0.2,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
   },
 }
 
@@ -48,7 +51,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
   },
 }
 
@@ -58,7 +61,11 @@ const AboutLebnexis: React.FC = () => {
       <motion.div
         initial={{ opacity: 0.1 }}
         animate={{ opacity: [0.1, 0.2, 0.1] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut" as const,
+        }}
         className='absolute inset-0 z-0'
         style={{
           backgroundImage: `radial-gradient(#1e293b 1px, transparent 1px)`,
@@ -147,7 +154,7 @@ const AboutLebnexis: React.FC = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeOut" as const }}
           className='relative group'
         >
           <div className='absolute -inset-1 bg-linear-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000'></div>

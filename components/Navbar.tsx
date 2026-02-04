@@ -105,7 +105,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: "easeInOut" as const }}
             className='absolute top-0 left-0 right-0 min-h-screen bg-white z-100 pt-24 px-8 md:hidden'
           >
             <div className='flex flex-col gap-6'>
