@@ -2,6 +2,7 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import Link from "next/link"
 import {
   ArrowUpRight,
   TrendingUp,
@@ -11,47 +12,131 @@ import {
   ExternalLink,
   Zap,
   BarChart3,
+  Github,
 } from "lucide-react"
+import Image from "next/image"
 
 const caseStudies = [
   {
-    title: "NebulaOS Platform",
+    title: "LebSpace",
     description:
-      "Full-scale launch for a cloud productivity suite. We engineered the brand identity, a high-performance marketing engine, and an interactive onboarding flow.",
+      "Social media platform for space enthusiasts. We built a scalable backend infrastructure and an intuitive UI/UX that increased user engagement significantly.",
     metrics: [
       { label: "User Growth", val: "300%", icon: <TrendingUp size={14} /> },
       { label: "Churn", val: "-54%", icon: <Activity size={14} /> },
     ],
-    industry: "SaaS",
+    industry: "Social Media",
     year: "2025",
     color: "from-blue-600/20 to-indigo-600/20",
     img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://lebspace.vercel.app/",
+    sourceCode: "https://github.com/AZZAM-K/LebSpace",
   },
   {
-    title: "Atlas Commerce",
+    title: "Apple Commerce Clone",
     description:
-      "Architecture and design of a global headless commerce engine. Focused on modular component libraries and sub-2s page load times for international markets.",
+      "E-commerce platform for a leading retail brand. We developed a high-performance shopping cart system and integrated advanced analytics to optimize sales funnels.",
     metrics: [
       { label: "Conversion", val: "+32%", icon: <BarChart3 size={14} /> },
       { label: "Performance", val: "98/100", icon: <Zap size={14} /> },
     ],
-    industry: "Retail",
+    industry: "E-commerce",
     year: "2024",
     color: "from-emerald-600/20 to-teal-600/20",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://apple-store-azzam-k.vercel.app/",
+    sourceCode: "https://github.com/AZZAM-K/Apple-Store-Frontend",
+  },
+
+  {
+    title: "Samsung Commerce Clone",
+    description:
+      "E-commerce platform for a leading retail brand. We developed a high-performance shopping cart system and integrated advanced analytics to optimize sales funnels.",
+    metrics: [
+      { label: "Conversion", val: "+32%", icon: <BarChart3 size={14} /> },
+      { label: "Performance", val: "98/100", icon: <Zap size={14} /> },
+    ],
+    industry: "E-commerce",
+    year: "2024",
+    color: "from-emerald-600/20 to-teal-600/20",
+    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://sumsung-store-frontend-i3ov.vercel.app/",
+    sourceCode: "https://github.com/Omarelali2/sumsung-store-frontend",
   },
   {
-    title: "PulseHealth EMR",
+    title: "CodeLeb",
     description:
-      "A HIPAA-compliant clinical ecosystem. We delivered a real-time telehealth scheduling engine and a complex data visualization dashboard for surgical teams.",
+      "Online coding education platform. We created an interactive learning environment with real-time code execution and personalized learning paths, boosting student retention.",
     metrics: [
       { label: "Latency", val: "<200ms", icon: <Layers size={14} /> },
       { label: "NPS", val: "71", icon: <Globe size={14} /> },
     ],
-    industry: "Healthcare",
-    year: "2024",
+    industry: "Education",
+    year: "2025",
     color: "from-rose-600/20 to-orange-600/20",
     img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://codeleb.vercel.app/",
+    sourceCode: "https://github.com/AZZAM-K/codeleb",
+  },
+  {
+    title: "GymForge Platform",
+    description:
+      "Hybrid workout and wellness platform with adaptive training plans, integrated wearables, and community challenges that drive consistent engagement across cohorts.",
+    metrics: [
+      { label: "Session Completion", val: "92%", icon: <Activity size={14} /> },
+      { label: "Retention", val: "+48%", icon: <TrendingUp size={14} /> },
+    ],
+    industry: "Health & Fitness",
+    year: "2026",
+    color: "from-purple-600/20 to-pink-600/20",
+    img: "https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://gymleb.vercel.app/",
+    sourceCode: "https://github.com/Omarelali2/the-big-gym",
+  },
+  {
+    title: "Shopping Platform",
+    description:
+      "A frontend e-commerce platform with seamless user experience, real-time inventory updates, and secure payment processing, resulting in increased sales and customer satisfaction.",
+    metrics: [
+      { label: "AOV", val: "+27%", icon: <BarChart3 size={14} /> },
+      { label: "Load Time", val: "1.2s", icon: <Zap size={14} /> },
+    ],
+    industry: "E-commerce",
+    year: "2024",
+    color: "from-amber-500/20 to-orange-500/20",
+    img: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://buy-products-six.vercel.app/",
+    sourceCode: "https://github.com/Omarelali2/Buy_products",
+  },
+  {
+    title: "Project Manage Pro",
+    description:
+      "Advanced project management tool with predictive analytics, resource optimization, and seamless collaboration features to enhance team productivity.",
+    metrics: [
+      { label: "Cycle Time", val: "-35%", icon: <Layers size={14} /> },
+      { label: "Forecast Accuracy", val: "+18%", icon: <Globe size={14} /> },
+    ],
+    industry: "Productivity",
+    year: "2025",
+    color: "from-slate-600/20 to-zinc-600/20",
+    img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://teams-dev-lb.vercel.app/",
+    sourceCode: "https://github.com/AZZAM-K/teams-dev",
+  },
+  {
+    title: "AtlasCountry Search",
+    description:
+      "Global country intelligence explorer featuring instant lookup, macro indicators, and geospatial context to power research teams.",
+    metrics: [
+      { label: "Query Speed", val: "<120ms", icon: <Zap size={14} /> },
+      { label: "Data Coverage", val: "195 Nations", icon: <Globe size={14} /> },
+    ],
+    industry: "Data Services",
+    year: "2026",
+    color: "from-cyan-500/20 to-blue-500/20",
+    img: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&q=80&w=800",
+    liveDemo: "https://demo.lebnexis.com/atlascountry",
+    sourceCode: "https://github.com/lebnexis/atlascountry-search",
   },
 ]
 
@@ -105,7 +190,9 @@ const ProjectsPage: React.FC = () => {
                 <div
                   className={`absolute inset-0 bg-linear-to-br ${study.color} opacity-50 z-10 group-hover:opacity-10 transition-opacity duration-500`}
                 />
-                <img
+                <Image
+                  width={200}
+                  height={200}
                   src={study.img}
                   alt={study.title}
                   className='h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100'
@@ -151,9 +238,28 @@ const ProjectsPage: React.FC = () => {
                   ))}
                 </div>
 
-                <button className='flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-slate-700 group-hover:text-indigo-600 transition-colors'>
-                  View Full Case Study <ArrowUpRight size={18} />
-                </button>
+                <div className='flex flex-wrap gap-4 text-sm font-bold uppercase tracking-widest'>
+                  <Link
+                    href={study.liveDemo}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='flex items-center gap-3 rounded-2xl border border-slate-300 px-6 py-3 text-slate-700 hover:border-indigo-400 hover:text-indigo-600 transition-colors'
+                    aria-label={`Open live demo for ${study.title}`}
+                    prefetch={false}
+                  >
+                    Live Demo <ArrowUpRight size={18} />
+                  </Link>
+                  <Link
+                    href={study.sourceCode}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='flex items-center gap-3 rounded-2xl border border-slate-300 px-6 py-3 text-slate-700 hover:border-indigo-400 hover:text-indigo-600 transition-colors'
+                    aria-label={`View source code for ${study.title}`}
+                    prefetch={false}
+                  >
+                    Source Code <Github size={18} />
+                  </Link>
+                </div>
               </div>
             </motion.article>
           ))}
@@ -173,12 +279,12 @@ const ProjectsPage: React.FC = () => {
               discuss your roadmap and see if we're a fit.
             </p>
             <div className='flex flex-col md:flex-row items-center justify-center gap-6'>
-              <a
+              <Link
                 href='/contact'
                 className='px-12 py-5 bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-transform shadow-xl'
               >
                 Start a conversation
-              </a>
+              </Link>
               <span className='text-xs font-bold text-indigo-800 uppercase tracking-widest'>
                 Average Kickoff: 10 Days
               </span>

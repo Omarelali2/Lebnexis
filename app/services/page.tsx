@@ -112,20 +112,20 @@ const ServicesPage = () => {
             transition={{ delay: 0.2 }}
             className='mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row'
           >
-            <a
-              href='mailto:hello@lebnexis.com'
+            <Link
+              href='/contact'
               className='group flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 font-semibold text-white transition-all hover:bg-slate-800 hover:shadow-lg'
             >
               Start your project
               <ArrowUpRight className='h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />
-            </a>
-            <a
-              href='#'
+            </Link>
+            <Link
+              href='/projects'
               className='flex items-center gap-2 px-8 py-4 font-semibold text-slate-600 transition-colors hover:text-blue-600'
             >
-              View Case Studies
+              Look at our work
               <ChevronRight className='h-4 w-4' />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>

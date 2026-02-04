@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { motion } from "framer-motion"
 import {
   ArrowRight,
@@ -35,7 +35,7 @@ type ProgramStage = {
 type FormState = {
   fullName: string
   email: string
-  phone: string | undefined
+  phone: string
   linkedin: string
   portfolio: string
   message: string
@@ -52,7 +52,7 @@ type SubmissionStatus = {
 const INITIAL_FORM_STATE: FormState = {
   fullName: "",
   email: "",
-  phone: undefined,
+  phone: "",
   linkedin: "",
   portfolio: "",
   message: "",
@@ -158,14 +158,12 @@ const FormField: React.FC<FormFieldProps> = ({
   label,
   id,
   error,
+  className,
+  value,
   ...props
 }) => (
   <div className='space-y-2'>
-    <label
-      htmlFor={id}
-    >
-      {label}
-    </label>
+    <label htmlFor={id}>{label}</label>
     <input
       id={id}
       name={id}
@@ -173,8 +171,11 @@ const FormField: React.FC<FormFieldProps> = ({
         error
           ? "border-rose-300 bg-rose-50 focus:ring-rose-100"
           : "border-slate-200 bg-slate-50 focus:ring-blue-100"
-      }`}
+      } ${className ?? ""}`.trim()}
+      aria-invalid={Boolean(error)}
       aria-describedby={error ? `${id}-error` : undefined}
+      value={value ?? ""}
+      {...props}
     />
     {error && (
       <span id={`${id}-error`} className='text-xs font-semibold text-rose-500'>
@@ -194,10 +195,12 @@ const validateForm = (values: FormState): FormErrors => {
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
     nextErrors.email = "Please enter a valid email address."
   }
-  if (!values.message.trim()) {
-    nextErrors.message = "Let us know why you are a fit."
-  } else if (values.message.trim().length < 40) {
-    nextErrors.message = "Message should be at least 40 characters."
+  if (
+    values.message.trim() &&
+    values.message.trim().length > 0 &&
+    values.message.trim().length < 40
+  ) {
+    nextErrors.message = "Message should be at least 40 characters if provided."
   }
   return nextErrors
 }
@@ -212,9 +215,15 @@ const InternshipPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [fileInputKey, setFileInputKey] = useState(() => Date.now())
 
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID_CONTACT
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_CONTACT
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY_CONTACT
+
+  useEffect(() => {
+    if (publicKey) {
+      emailjs.init({ publicKey })
+    }
+  }, [publicKey])
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -233,15 +242,38 @@ const InternshipPage = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null
     setFormData(prev => ({ ...prev, resumeFile: file }))
+    if (errors.resumeFile) {
+      setErrors(prev => {
+        const cloned = { ...prev }
+        delete cloned.resumeFile
+        return cloned
+      })
+    }
   }
 
   const isSubmitDisabled = useMemo(() => {
     if (isSubmitting) {
       return true
     }
-    const pendingErrors = validateForm(formData)
-    return Object.keys(pendingErrors).length > 0
-  }, [formData, isSubmitting])
+
+    const hasRequiredFields =
+      formData.fullName.trim() &&
+      formData.email.trim() &&
+      formData.phone.trim() &&
+      formData.linkedin.trim() &&
+      formData.portfolio.trim() &&
+      Boolean(formData.resumeFile)
+
+    return !hasRequiredFields
+  }, [
+    formData.fullName,
+    formData.email,
+    formData.phone,
+    formData.linkedin,
+    formData.portfolio,
+    formData.resumeFile,
+    isSubmitting,
+  ])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -252,10 +284,23 @@ const InternshipPage = () => {
     }
 
     if (!serviceId || !templateId || !publicKey) {
+      const missingConfig = [
+        ["NEXT_PUBLIC_EMAILJS_SERVICE_ID_CONTACT", serviceId],
+        ["NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_CONTACT", templateId],
+        ["NEXT_PUBLIC_EMAILJS_PUBLIC_KEY", publicKey],
+      ]
+        .filter(([, value]) => !value)
+        .map(([name]) => name)
+        .join(", ")
+
+      if (missingConfig) {
+        console.warn("EmailJS client missing configuration:", missingConfig)
+      }
+
       setStatus({
         type: "error",
         message:
-          "Application intake is not configured. Please email hello@lebnexis.com directly.",
+          "Application intake is not configured. Please email elaliomar30@gmail.com directly.",
       })
       return
     }
@@ -264,20 +309,31 @@ const InternshipPage = () => {
     setStatus({ type: null, message: "" })
 
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone || "Not provided",
-          linkedin: formData.linkedin || "Not provided",
-          portfolio: formData.portfolio || "Not provided",
-          message: formData.message,
-          resumeFileName: formData.resumeFile?.name ?? "Not attached",
-        },
-        { publicKey },
-      )
+      const sanitizedMessage = formData.message.trim()
+        ? formData.message.trim()
+        : "Not provided"
+      const payload = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        linkedin: formData.linkedin,
+        portfolio: formData.portfolio,
+        message: sanitizedMessage,
+        resumeFileName: formData.resumeFile?.name ?? "Not attached",
+        from_name: formData.fullName,
+        from_email: formData.email,
+        contact_phone: formData.phone,
+        linkedin_profile: formData.linkedin,
+        portfolio_url: formData.portfolio,
+        cover_message: sanitizedMessage,
+        full_name: formData.fullName,
+        email_address: formData.email,
+        linkedin_url: formData.linkedin,
+        portfolio_link: formData.portfolio,
+        why_program: sanitizedMessage,
+      }
+
+      await emailjs.send(serviceId, templateId, payload)
 
       setStatus({
         type: "success",
@@ -287,11 +343,27 @@ const InternshipPage = () => {
       setErrors({})
       setFileInputKey(Date.now())
     } catch (error) {
-      console.error("Internship application email failed", error)
+      const errorStatus =
+        typeof error === "object" && error && "status" in error
+          ? String((error as { status?: unknown }).status ?? "")
+          : ""
+      const errorText =
+        error instanceof Error
+          ? error.message
+          : typeof error === "object" && error && "text" in error
+            ? String((error as { text?: unknown }).text ?? "Unknown error")
+            : "Unknown error"
+
+      console.error("Internship application email failed", {
+        status: errorStatus,
+        text: errorText,
+        raw: error,
+      })
       setStatus({
         type: "error",
-        message:
-          "We could not send your application. Please try again or email hello@lebnexis.com.",
+        message: `We could not send your application. Please try again or email elaliomar30@gmail.com. (${
+          [errorStatus, errorText].filter(Boolean).join(": ") || "Unknown error"
+        })`,
       })
     } finally {
       setIsSubmitting(false)
@@ -301,7 +373,7 @@ const InternshipPage = () => {
   return (
     <div className='min-h-screen bg-[#fafafa] text-slate-900 selection:bg-blue-600 selection:text-white'>
       <section className='relative overflow-hidden bg-white pt-40 pb-32 px-6'>
-        <div className='absolute top-0 left-1/2 -z-10 h-[600px] w-[1000px] -translate-x-1/2 rounded-full bg-gradient-to-b from-blue-50/80 to-transparent blur-3xl' />
+        <div className='absolute top-0 left-1/2 -z-10 h-150 w-250 -translate-x-1/2 rounded-full bg-linear-to-b from-blue-50/80 to-transparent blur-3xl' />
 
         <div className='mx-auto max-w-6xl relative z-10 text-center md:text-left'>
           <motion.div
@@ -332,9 +404,10 @@ const InternshipPage = () => {
             transition={{ delay: 0.1 }}
             className='max-w-2xl text-xl leading-relaxed text-slate-500 mb-12 font-medium'
           >
-            An intensive 8-week immersion into modern full-stack web development. No coffee
-            runs—just production code, Git and GitHub mastery, Jira-backed
-            collaboration, and framework-driven launch-ready builds spanning frontend and backend.
+            An intensive 8-week immersion into modern full-stack web
+            development. No coffee runs—just production code, Git and GitHub
+            mastery, Jira-backed collaboration, and framework-driven
+            launch-ready builds spanning frontend and backend.
           </motion.p>
 
           <motion.div
@@ -409,7 +482,7 @@ const InternshipPage = () => {
 
       <section className='bg-slate-950 py-32 px-6 text-white overflow-hidden relative'>
         <div className='absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none'>
-          <div className='absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600 rounded-full blur-[120px]' />
+          <div className='absolute top-[-10%] right-[-10%] w-125 h-125 bg-blue-600 rounded-full blur-[120px]' />
         </div>
 
         <div className='max-w-6xl mx-auto relative z-10'>
@@ -552,7 +625,7 @@ const InternshipPage = () => {
 
               <div className='space-y-2'>
                 <label className='text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1'>
-                  Why this program?
+                  Why this program? (Optional)
                 </label>
                 <textarea
                   name='message'
@@ -564,7 +637,7 @@ const InternshipPage = () => {
                       ? "border-rose-300 bg-rose-50 focus:ring-rose-100"
                       : "border-slate-200 bg-slate-50 focus:ring-blue-100"
                   }`}
-                  placeholder='Tell us about your technical goals...'
+                  placeholder='Tell us about your technical goals (optional)...'
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={
                     errors.message ? "message-error" : undefined

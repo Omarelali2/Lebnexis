@@ -130,21 +130,21 @@ const Footer = () => {
               <ul className='space-y-3'>
                 <li className='flex items-start gap-3'>
                   <Mail className='w-5 h-5 text-indigo-600 mt-0.5' />
-                  <a
-                    href='mailto:hello@lebnexis.com'
+                  <Link
+                    href='mailto:elaliomar30@gmail.com'
                     className='text-gray-700 hover:text-indigo-600 transition-colors text-sm'
                   >
-                    hello@lebnexis.com
-                  </a>
+                    elaliomar30@gmail.com
+                  </Link>
                 </li>
                 <li className='flex items-start gap-3'>
                   <Phone className='w-5 h-5 text-indigo-600  mt-0.5' />
-                  <a
-                    href='tel:+1234567890'
+                  <Link
+                    href='tel:+96170259020'
                     className='text-gray-700 hover:text-indigo-600 transition-colors text-sm'
                   >
-                    +1 (234) 567-890
-                  </a>
+                    +961 70 259 020
+                  </Link>
                 </li>
                 <li className='flex items-start gap-3'>
                   <MapPin className='w-5 h-5 text-indigo-600  mt-0.5' />

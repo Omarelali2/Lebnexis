@@ -70,6 +70,7 @@ const TeamPage = () => {
         "Ensuring fiscal resilience and sustainable growth",
       ],
       linkedinUrl: "https://www.linkedin.com/in/omar-elali-28aaa1312/",
+      email: "elaliomar30@gmail.com",
     },
     {
       name: "Azzam Alkahil",
@@ -88,15 +89,16 @@ const TeamPage = () => {
         "Budget planning and resource allocation",
       ],
       linkedinUrl: "https://www.linkedin.com/in/azzam-al-kahil/",
+      email: "azzam.kahil.dev@gmail.com",
     },
     {
       name: "Jad Akil",
       role: "Operations Manager",
       icon: <Cpu className='w-6 h-6 text-purple-400' />,
       responsibility:
-        "Directs the production and distribution processes, optimizing the supply chain and ensuring all workflows support business goals.",
-      img: "/Jad.jpeg",
-      bio: "Jad is a backend engineer who architects engineering playbooks, balancing discovery and delivery while championing observability across every release.",
+        "Leads operational strategies, optimizes workflows, and ensures that project deliverables align with client expectations and company standards.",
+      img: "/Jad2.jpeg",
+      bio: "Jad is a AI engineer specializing in operational excellence, leveraging technology to streamline workflows and enhance service delivery across all client engagements.",
       highlight:
         "Launched our service telemetry platform, cutting incident resolution time in half across all pods.",
       tenure: "At Lebnexis since 2026",
@@ -106,6 +108,7 @@ const TeamPage = () => {
         "Service reliability and platform tooling",
       ],
       linkedinUrl: "https://www.linkedin.com/in/jad-akil-45a276271/",
+      email: "jadakeel05@gmail.com",
     },
     {
       name: "Hossam Albenni",
@@ -124,6 +127,7 @@ const TeamPage = () => {
         "Health, wellbeing, and engagement initiatives",
       ],
       linkedinUrl: "https://www.linkedin.com/in/houssam-al-benni-059459331/",
+      email: "Houssamalbenni@gmail.com",
     },
   ]
 
@@ -226,9 +230,13 @@ const TeamPage = () => {
                     >
                       <Linkedin size={20} />
                     </Link>
-                    <button className='p-3 bg-white shadow-xl rounded-2xl hover:bg-indigo-600 hover:text-white transition-all'>
+                    <Link
+                      href={`mailto:${member.email}`}
+                      className='p-3 bg-white shadow-xl rounded-2xl hover:bg-indigo-600 hover:text-white transition-all'
+                      aria-label={`Email ${member.name}`}
+                    >
                       <Mail size={20} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
 
@@ -273,7 +281,18 @@ const TeamPage = () => {
                     </div>
                   </div>
 
-                  <div className='mt-6 flex items-center justify-between'>
+                  <div className='mt-6 flex items-center gap-3 text-sm font-semibold text-indigo-600'>
+                    <Mail size={16} className='text-indigo-500' />
+                    <Link
+                      href={`mailto:${member.email}`}
+                      className='hover:underline'
+                      aria-label={`Email ${member.name}`}
+                    >
+                      {member.email}
+                    </Link>
+                  </div>
+
+                  <div className='mt-4 flex items-center justify-between'>
                     <div className='flex items-center gap-2'>
                       <Award size={16} className='text-amber-500' />
                       <span className='text-sm font-bold text-slate-800'>
