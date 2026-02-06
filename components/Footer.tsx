@@ -3,7 +3,7 @@
 import Link from "next/link"
 import {
   Facebook,
-  Twitter,
+  Instagram,
   Linkedin,
   Github,
   Mail,
@@ -29,8 +29,8 @@ const Footer = () => {
 
   const socials = [
     { icon: Github, href: "#", label: "GitHub" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/lebnexis", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/lebnexis/", label: "Instagram" },
     { icon: Facebook, href: "#", label: "Facebook" },
   ]
 
@@ -64,14 +64,14 @@ const Footer = () => {
                 {socials.map(social => {
                   const Icon = social.icon
                   return (
-                    <a
+                    <Link
                       key={social.label}
                       href={social.href}
                       className='p-2 rounded-lg bg-indigo-100/60 text-gray-700 hover:text-indigo-700 hover:bg-indigo-200/60 transition-all duration-300'
                       title={social.label}
                     >
                       <Icon className='w-5 h-5' />
-                    </a>
+                    </Link>
                   )
                 })}
               </div>
@@ -131,10 +131,10 @@ const Footer = () => {
                 <li className='flex items-start gap-3'>
                   <Mail className='w-5 h-5 text-indigo-600 mt-0.5' />
                   <Link
-                    href='mailto:elaliomar30@gmail.com'
+                    href='mailto:info@lebnexis.com'
                     className='text-gray-700 hover:text-indigo-600 transition-colors text-sm'
                   >
-                    elaliomar30@gmail.com
+                    info@lebnexis.com
                   </Link>
                 </li>
                 <li className='flex items-start gap-3'>

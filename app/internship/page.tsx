@@ -59,6 +59,8 @@ const INITIAL_FORM_STATE: FormState = {
   resumeFile: null,
 }
 
+const APPLICATIONS_OPEN = false
+
 const PROGRAM_HIGHLIGHTS: ProgramHighlight[] = [
   {
     title: "Production Delivery Pods",
@@ -252,6 +254,9 @@ const InternshipPage = () => {
   }
 
   const isSubmitDisabled = useMemo(() => {
+    if (!APPLICATIONS_OPEN) {
+      return true
+    }
     if (isSubmitting) {
       return true
     }
@@ -275,8 +280,34 @@ const InternshipPage = () => {
     isSubmitting,
   ])
 
+  const renderApplicationsClosedMessage = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className='flex flex-col items-center justify-center gap-6 text-center py-16 px-6'
+    >
+      <span className='inline-flex items-center gap-3 rounded-full border border-blue-200 bg-blue-50/60 px-5 py-2 text-xs font-black uppercase tracking-[0.3em] text-blue-600'>
+        Heads Up
+      </span>
+      <h3 className='text-3xl font-black text-slate-800 tracking-tight'>
+        No internship cohort is open right now.
+      </h3>
+      <p className='text-slate-500 max-w-md font-medium leading-relaxed'>
+        We are not accepting new applications at the moment. Join our newsletter or check back soon to be the first to know when the next cohort launches.
+      </p>
+    </motion.div>
+  )
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!APPLICATIONS_OPEN) {
+      setStatus({
+        type: "error",
+        message: "Applications are currently closed. Please check back soon.",
+      })
+      return
+    }
+
     const validationErrors = validateForm(formData)
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
@@ -559,7 +590,8 @@ const InternshipPage = () => {
             viewport={{ once: true }}
             className='md:col-span-3 bg-white rounded-[3rem] border border-slate-200 p-10 md:p-14 shadow-2xl relative'
           >
-            <form className='grid gap-8' onSubmit={handleSubmit}>
+            {APPLICATIONS_OPEN ? (
+              <form className='grid gap-8' onSubmit={handleSubmit}>
               <div className='grid gap-6 sm:grid-cols-2'>
                 <FormField
                   label='Full Name'
@@ -684,7 +716,10 @@ const InternshipPage = () => {
                   {status.message}
                 </motion.div>
               )}
-            </form>
+              </form>
+            ) : (
+              renderApplicationsClosedMessage()
+            )}
           </motion.div>
         </div>
       </section>

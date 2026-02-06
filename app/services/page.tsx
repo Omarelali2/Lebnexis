@@ -269,7 +269,7 @@ const ServicesPage = () => {
 
           <div className='mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row'>
             <Link
-              href='mailto:hello@lebnexis.com'
+              href='mailto:info@lebnexis.com'
               className='rounded-full bg-white px-10 py-4 font-bold text-blue-600 shadow-xl transition-transform hover:scale-105'
             >
               Email the team

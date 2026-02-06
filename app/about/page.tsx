@@ -44,7 +44,7 @@ const TeamPage = () => {
       description:
         "Our internship programme rotates aspiring engineers through live client projects, pairing them with senior mentors.",
       points: [
-        "Three-month experiential tracks",
+        "Two-month experiential tracks",
         "Certified mentorship curriculum",
         "80% conversion into full-time roles",
       ],
@@ -55,7 +55,7 @@ const TeamPage = () => {
   const team = [
     {
       name: "Omar Elali",
-      role: "Chief Executive Officer",
+      role: "Founder-CEO",
       icon: <ShieldCheck className='w-6 h-6 text-blue-400' />,
       responsibility:
         "Responsible for high-level strategic decisions, leading the organization's overall resources, and acting as the main point of communication.",
@@ -74,7 +74,7 @@ const TeamPage = () => {
     },
     {
       name: "Azzam Alkahil",
-      role: "Administrative Director",
+      role: "Co-Founder-COO",
       icon: <Briefcase className='w-6 h-6 text-emerald-400' />,
       responsibility:
         "Oversees the daily administrative operations, develops internal policies, and manages department budgets to ensure efficiency.",
@@ -93,11 +93,11 @@ const TeamPage = () => {
     },
     {
       name: "Jad Akil",
-      role: "Operations Manager",
+      role: "Co-Founder-CPO",
       icon: <Cpu className='w-6 h-6 text-purple-400' />,
       responsibility:
         "Leads operational strategies, optimizes workflows, and ensures that project deliverables align with client expectations and company standards.",
-      img: "/Jad2.jpeg",
+      img: "/JAD.jpeg",
       bio: "Jad is a AI engineer specializing in operational excellence, leveraging technology to streamline workflows and enhance service delivery across all client engagements.",
       highlight:
         "Launched our service telemetry platform, cutting incident resolution time in half across all pods.",
@@ -116,7 +116,7 @@ const TeamPage = () => {
       icon: <Users className='w-6 h-6 text-orange-400' />,
       responsibility:
         "Manages organizational culture, employee relations, recruitment strategies, and ensures full compliance with labor regulations.",
-      img: "/Hossam.jpeg",
+      img: "/hoss.jpeg",
       bio: "Hossam is a frontend engineer who designs the people experience, from candidate journeys to growth plans, ensuring every Lebnexian has a tailored development path.",
       highlight:
         "Built the mentorship guild that keeps cohorts engaged and pushes every interface toward benchmark accessibility scores.",

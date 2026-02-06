@@ -65,7 +65,7 @@ const CallToAction = () => {
                 </Link>
 
                 <Link
-                  href='mailto:elaliomar30@gmail.com'
+                  href='mailto:info@lebnexis.com'
                   className='h-14 px-10 inline-flex items-center justify-center gap-2 bg-white text-slate-600 font-medium rounded-full border border-slate-200 hover:border-slate-900 hover:text-slate-900 transition-all duration-300'
                 >
                   <Mail className='w-4 h-4' />
@@ -78,10 +78,10 @@ const CallToAction = () => {
                   Get in touch directly
                 </span>
                 <Link
-                  href='mailto:elaliomar30@gmail.com'
+                  href='mailto:info@lebnexis.com'
                   className='text-slate-900 font-medium border-b border-slate-200 hover:border-indigo-500 transition-colors'
                 >
-                  elaliomar30@gmail.com
+                  info@lebnexis.com
                 </Link>
               </div>
             </div>
