@@ -1,15 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Github,
-  Mail,
-  Phone,
-  MapPin,
-} from "lucide-react"
+import { Instagram, Linkedin, Github, Mail, Phone, MapPin } from "lucide-react"
+import TikTokIcon from "./icons/TikTokIcon"
 import Image from "next/image"
 
 const Footer = () => {
@@ -29,9 +22,21 @@ const Footer = () => {
 
   const socials = [
     { icon: Github, href: "https://github.com/Lebnexis", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/lebnexis", label: "LinkedIn" },
-    { icon: Instagram, href: "https://www.instagram.com/lebnexis/", label: "Instagram" },
-    { icon: Facebook, href: "#", label: "Facebook" },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/company/lebnexis",
+      label: "LinkedIn",
+    },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/lebnexis/",
+      label: "Instagram",
+    },
+    {
+      icon: TikTokIcon,
+      href: "https://www.tiktok.com/@lebnexis?lang=en",
+      label: "TikTok",
+    },
   ]
 
   return (
