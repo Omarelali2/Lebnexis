@@ -61,7 +61,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className='text-sm text-gray-700 mt-2'>
-                  Building solutions. Developing talent. Creating impact.
+                  Building solutions. Developing talent. Creating impact in Lebanon and beyond.
                 </p>
               </div>
 
