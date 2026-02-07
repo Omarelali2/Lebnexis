@@ -28,7 +28,7 @@ const Footer = () => {
   }
 
   const socials = [
-    { icon: Github, href: "#", label: "GitHub" },
+    { icon: Github, href: "https://github.com/Lebnexis", label: "GitHub" },
     { icon: Linkedin, href: "https://www.linkedin.com/company/lebnexis", label: "LinkedIn" },
     { icon: Instagram, href: "https://www.instagram.com/lebnexis/", label: "Instagram" },
     { icon: Facebook, href: "#", label: "Facebook" },
